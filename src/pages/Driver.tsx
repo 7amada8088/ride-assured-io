@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Users, Play, Flag } from "lucide-react";
 import { toast } from "sonner";
+import { LiveTrackingMap } from "@/components/LiveTrackingMap";
+import { useTripSimulator } from "@/hooks/useTripSimulator";
 
 interface Trip {
   id: string;
@@ -38,10 +40,18 @@ const Driver = () => {
   useEffect(() => { load(); }, [user]);
 
   const updateStatus = async (id: string, status: "in_progress" | "completed") => {
-    const { error } = await supabase.from("trips").update({ status }).eq("id", id);
+    const updates =
+      status === "in_progress"
+        ? { status, current_lat: 0, current_lng: 0 }
+        : { status, current_lat: 1, current_lng: 0 };
+    const { error } = await supabase.from("trips").update(updates).eq("id", id);
     if (error) toast.error(error.message);
     else { toast.success(`Trip ${status.replace("_", " ")}`); load(); }
   };
+
+  // Simulate GPS for the first in-progress trip
+  const activeTrip = trips.find((t) => t.status === "in_progress");
+  useTripSimulator(activeTrip?.id ?? null, !!activeTrip);
 
   if (!driverId) {
     return (
@@ -90,6 +100,11 @@ const Driver = () => {
                 </Button>
               )}
             </div>
+            {(t.status === "in_progress" || t.status === "scheduled") && (
+              <div className="mt-3">
+                <LiveTrackingMap tripId={t.id} origin={t.routes?.origin} destination={t.routes?.destination} />
+              </div>
+            )}
           </Card>
         ))}
         {trips.length === 0 && (
