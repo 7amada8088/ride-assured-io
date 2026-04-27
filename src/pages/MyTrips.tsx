@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Clock, Ticket, MapPin, X } from "lucide-react";
 import { toast } from "sonner";
+import { LiveTrackingMap } from "@/components/LiveTrackingMap";
 
 interface Booking {
   id: string;
@@ -87,6 +88,15 @@ const MyTrips = () => {
                 <Button variant="ghost" size="sm" className="w-full mt-2 text-destructive" onClick={() => cancel(b.id)}>
                   <X className="h-4 w-4" /> Cancel booking
                 </Button>
+              )}
+              {!cancelled && b.trips && (b.trips.status === "in_progress" || b.trips.status === "scheduled") && (
+                <div className="mt-3">
+                  <LiveTrackingMap
+                    tripId={b.trips.id}
+                    origin={b.trips.routes?.origin}
+                    destination={b.trips.routes?.destination}
+                  />
+                </div>
               )}
             </Card>
           );
