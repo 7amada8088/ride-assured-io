@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { LogOut, Shield } from "lucide-react";
+import { LogOut, Shield, Download } from "lucide-react";
 import { toast } from "sonner";
 import { Logo } from "@/components/Logo";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { user, role, signOut } = useAuth();
@@ -70,7 +71,11 @@ const Profile = () => {
         </Button>
       </div>
 
-      <Button variant="outline" className="w-full mt-8" onClick={signOut}>
+      <Button asChild variant="hero" className="w-full mt-8">
+        <Link to="/install"><Download className="h-4 w-4" /> Install Basy app</Link>
+      </Button>
+
+      <Button variant="outline" className="w-full mt-3" onClick={signOut}>
         <LogOut className="h-4 w-4" /> Sign out
       </Button>
     </AppShell>

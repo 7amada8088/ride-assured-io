@@ -18,6 +18,7 @@ import Driver from "./pages/Driver.tsx";
 import Admin from "./pages/Admin.tsx";
 import AdminRoutes from "./pages/AdminRoutes.tsx";
 import AdminTrips from "./pages/AdminTrips.tsx";
+import Install from "./pages/Install.tsx";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
           <Routes>
             <Route path="/landing" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/install" element={<Install />} />
             <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
             <Route path="/routes" element={<ProtectedRoute><RoutesPage /></ProtectedRoute>} />
             <Route path="/route/:id" element={<ProtectedRoute><RouteDetail /></ProtectedRoute>} />
