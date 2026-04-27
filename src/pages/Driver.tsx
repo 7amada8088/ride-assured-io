@@ -40,9 +40,10 @@ const Driver = () => {
   useEffect(() => { load(); }, [user]);
 
   const updateStatus = async (id: string, status: "in_progress" | "completed") => {
-    const updates: Record<string, unknown> = { status };
-    if (status === "in_progress") updates.current_lat = 0;
-    if (status === "completed") updates.current_lat = 1;
+    const updates =
+      status === "in_progress"
+        ? { status, current_lat: 0, current_lng: 0 }
+        : { status, current_lat: 1, current_lng: 0 };
     const { error } = await supabase.from("trips").update(updates).eq("id", id);
     if (error) toast.error(error.message);
     else { toast.success(`Trip ${status.replace("_", " ")}`); load(); }
