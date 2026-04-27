@@ -1,0 +1,9 @@
+{
+  "appId": "app.lovable.9bd8a30bfaa64d7fa8d3750acd6415c7",
+  "appName": "basy",
+  "webDir": "dist",
+  "server": {
+    "url": "https://9bd8a30b-faa6-4d7f-a8d3-750acd6415c7.lovableproject.com?forceHideBadge=true",
+    "cleartext": true
+  }
+}
