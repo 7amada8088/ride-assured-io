@@ -52,9 +52,14 @@ const Home = () => {
       <div className="-mx-5 px-5 pt-6 pb-8 bg-gradient-hero text-primary-foreground rounded-b-3xl shadow-elegant">
         <p className="text-sm opacity-90">Good day{name ? `, ${name}` : ""} 👋</p>
         <h1 className="text-2xl font-bold mt-1">Where are you heading?</h1>
-        <Link to="/routes">
+        <Link to="/plan">
           <Button variant="secondary" size="xl" className="w-full mt-5 shadow-md">
-            <MapPin className="mr-1" /> Find a route
+            <MapPin className="mr-1" /> Plan a trip (From → To)
+          </Button>
+        </Link>
+        <Link to="/routes">
+          <Button variant="ghost" size="sm" className="w-full mt-2 text-primary-foreground hover:bg-white/10 hover:text-primary-foreground">
+            Or browse all routes
           </Button>
         </Link>
       </div>
